@@ -1,0 +1,113 @@
+const express = require("express");
+const router = express.Router();
+const jwt_key = require('../src/config');
+const {Content,Link, User} = require('../src/db');
+const UserMiddlewear = require('../middlewears/UsersMiddlewear');
+const mongoose = require("mongoose");
+const random = require('../src/util');
+
+router.post('/add',UserMiddlewear ,async (req,res)=>{
+try{
+    const {title,link} = req.body;
+    await Content.create({
+        title,
+        link,
+        userId:req._id,
+        tags: []
+    })
+res.json({
+    msg:"content added"
+})
+}
+catch(e){
+    console.log(e);
+    res.json({
+        msg:"there was an error"
+    })
+}
+
+})
+
+router.get('/read',UserMiddlewear,async (req,res)=>{
+    const userId=req._id;
+    const content = await Content.findOne({
+        userId:userId
+    }).populate("userId","username")
+    res.json({
+        content
+    })
+})
+
+
+router.delete('/delete',UserMiddlewear,async (req,res)=>{
+    const userId=req._id;
+    const _id = req.body.contentId;
+    await Content.deleteOne({
+        _id,
+        userId:userId
+    })
+    res.json({
+        msg:"deleted sucessfully"
+    })
+})
+
+router.post('/share',UserMiddlewear,async (req,res)=>{
+    const share = req.body.share;
+    try{
+        let hash=random(10);
+    if(share){
+        await Link.create({
+            hash:hash,
+            userId:req._id
+        })
+        res.json({
+            hash:hash
+        })
+        return;
+    }
+    else{
+        await Link.deleteOne({
+            _id:req._id,
+        })
+        res.json({
+            msg:"sharable link disabled"
+        })
+    }
+}catch(e){
+    res.json({
+        error:e.message
+    })
+}
+
+})
+
+router.get('/share/:hash',async(req,res)=>{
+    const hash = req.params.hash;
+    try{
+   const link = await Link.findOne({
+    hash:hash
+   }) 
+   if(!link){
+    res.json({
+        msg:"invalid hash"
+    })
+    return;
+   }
+  const Userdoc = await User.findOne({
+    _id:link.userId
+  })
+   const content = await Content.findOne({
+    userId:Userdoc._id
+  })
+  res.json({
+    username:Userdoc.username,
+    content:content
+  })
+}catch(e){
+    res.json({
+        error:e.message
+    })
+}
+})
+
+module.exports = router;
