@@ -1,37 +1,52 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import {Button1,Button2} from './Components/Buttons';
 import Card from './Components/card';
-import AddPostModel from './Components/addPostModel';
+import AddPostModel from './Components/AddPostModel';
 import Sidebar from './Components/Sidebar';
+import axios from 'axios';
+
 
 
 function App() {
-const [open, setOpen] = useState(false);
+  
+
+const [openAddPostModel, setOpenAddPostModel] = useState(false);
+const [content,setcontent] = useState([]);
 
 function popup(){
-  setOpen(prev=>!prev);
+  setOpenAddPostModel(prev=>!prev);
 }
+
+async function fetchdata(){
+  const res =  await axios.get('http://localhost:3000/read',{
+    headers:{
+     authorization:localStorage.getItem('token')
+    }})
+    const contentArray = Object.values(res.data.content); // Transform object to array
+    setcontent(contentArray);
+}
+
+useEffect(()=>{fetchdata()},[]);
+
 
   return (
     <>
     <div className='h-screen bg-gray-100'>
     <Sidebar/>
     
-    {open?
-    <AddPostModel popup={popup} />:null}
+    {openAddPostModel?
+    <AddPostModel popup={popup} fetchdata={fetchdata} />:null}
 
-     <div className='flex justify-end gap-x-4 mr-6'>
+     <div className='flex justify-end gap-x-4 mr-6 relative bottom-4'>
     <Button2 ></Button2>
     <Button1 popup={popup}></Button1>
     </div>
 
-<div className='flex ml-72'>
-<Card  type='youtube' link={'https://www.youtube.com/watch?v=dm1dSSZ7k3w'} title='oujfefiejifjeijfiejfi fiejige geojg' ></Card>
-<Card type="twitter" link={'https://x.com/narendramodi/status/1876980119111442610'} title={'how to build a second brain'}>
-</Card>
+<div className='flex flex-wrap ml-72 relative bottom-10'>
+  {content.map(x=> <Card title={x.title} link={x.link} content_id={x._id} type={'youtube'}></Card>)}
 </div>
 </div>
     </>

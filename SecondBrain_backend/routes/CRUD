@@ -9,11 +9,11 @@ const random = require('../src/util');
 router.post('/add',UserMiddlewear ,async (req,res)=>{
 try{
     const {title,link} = req.body;
-    await Content.create({
+     const response = await Content.create({
         title,
         link,
         userId:req._id,
-        tags: []
+       
     })
 res.json({
     msg:"content added"
@@ -30,7 +30,7 @@ catch(e){
 
 router.get('/read',UserMiddlewear,async (req,res)=>{
     const userId=req._id;
-    const content = await Content.findOne({
+    const content = await Content.find({
         userId:userId
     }).populate("userId","username")
     res.json({
@@ -39,17 +39,17 @@ router.get('/read',UserMiddlewear,async (req,res)=>{
 })
 
 
-router.delete('/delete',UserMiddlewear,async (req,res)=>{
-    const userId=req._id;
-    const _id = req.body.contentId;
-    await Content.deleteOne({
-        _id,
-        userId:userId
+    router.delete('/delete',UserMiddlewear,async (req,res)=>{
+        const userId=req._id;
+        const _id = req.body.contentId;
+        await Content.deleteOne({
+            _id,
+            userId:userId
+        })
+        res.json({
+            msg:"deleted sucessfully",
+        })
     })
-    res.json({
-        msg:"deleted sucessfully"
-    })
-})
 
 router.post('/share',UserMiddlewear,async (req,res)=>{
     const share = req.body.share;

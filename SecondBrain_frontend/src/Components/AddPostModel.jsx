@@ -1,107 +1,57 @@
-import { useRef, useState } from "react";
-import axios from "axios";
+import { useState,useRef } from "react";
+import axios from 'axios';
 
-const ContentType = {
-  Youtube: "youtube",
-  Twitter: "twitter",
-};
 
-export default function AddPostModel({ popup }) {
-  // References to the input fields for title and link
-  const titleRef = useRef();
-  const linkRef = useRef();
+export default function AddPostModel({popup,fetchdata}){
 
-  // State to manage the selected content type
-  const [type, setType] = useState(ContentType.Youtube);
+const [Type,setType] = useState('youtube')
 
-  // Function to handle the API call
-  const addContent = async () => {
-    const title = titleRef.current?.value; // Get the title value
-    const link = linkRef.current?.value; // Get the link value
+  function youtube(){
+    setType('youtube')
+  }
 
-    if (!title || !link) {
-      alert("Please fill in all fields!");
-      return;
-    }
+  function twitter(){
+    setType('twitter')
+  }
 
-    try {
-      // Making a POST request to add new content
-      await axios.post(
-        "http://localhost:3000",
-        {
-          link,
-          type,
-          title
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("token") || "", // Including the authorization token
-          },
-        }
-      );
-      alert("Content added successfully!");
-      popup(); // Close the modal after successful submission
-    } catch (error) {
-      console.error("Error adding content:", error);
-      alert("Failed to add content. Please try again.");
-    }
-  };
+ const titleref = useRef();
+const linkref = useRef();
 
-  return (
-    <div className="h-screen w-screen bg-gray-500/60 fixed z-10 flex justify-center items-center">
-      <div>
-        <div className="max-w-60 bg-white p-4">
-          {/* Close Button */}
-          <div className="flex justify-end">
-            <button onClick={popup} className="cursor-pointer">
-              ✖
-            </button>
-          </div>
+async function AddContent(){
+ const title = titleref.current.value;
+ const link = linkref.current.value;
+  await axios.post('http://localhost:3000/add',{
+      title:title,
+      link:link,
 
-          {/* Form Fields */}
-          <div className="flex flex-col">
-            <label htmlFor="title">Title</label>
-            <input ref={titleRef} className="bg-gray-200" type="text" id="title" />
-            <label htmlFor="link">Link</label>
-            <input ref={linkRef} className="bg-gray-200" type="text" id="link" />
-          </div>
+  },{
+   headers:{
+    authorization:localStorage.getItem('token')
+   }})
+  alert("succefully posted");
+popup()
+fetchdata();
 
-          {/* Content Type Selection */}
-          <div>
-            <h1>Type</h1>
-            <div className="flex gap-1 justify-center pb-2">
-              {/* Button to select YouTube type */}
-              <button
-                className={`p-2 ${
-                  type === ContentType.Youtube ? "bg-blue-500 text-white" : "bg-gray-300"
-                }`}
-                onClick={() => setType(ContentType.Youtube)}
-              >
-                YouTube
-              </button>
-              {/* Button to select Twitter type */}
-              <button
-                className={`p-2 ${
-                  type === ContentType.Twitter ? "bg-blue-500 text-white" : "bg-gray-300"
-                }`}
-                onClick={() => setType(ContentType.Twitter)}
-              >
-                Twitter
-              </button>
-            </div>
-          </div>
+}
 
-          {/* Submit Button */}
-          <div className="flex justify-end">
-            <button
-              onClick={addContent}
-              className="p-1 m-2 rounded-md bg-gray-500 text-white"
-            >
-              Add
-            </button>
-          </div>
-        </div>
-      </div>
+
+
+
+
+  return(
+    <>
+    <div className="fixed bg-gray-400/60 z-20 w-screen h-screen flex justify-center items-center">
+    <div className="w-60 h-60 bg-white flex flex-col p-4">
+    <label htmlFor="title">title</label>
+    <input ref={titleref} className="bg-gray-300 " type="text" id="title" />
+    <label  htmlFor="link">link</label>
+    <input ref={linkref} className="bg-gray-300 " type="text" id="link" />
+
+    <span onClick = {youtube} className={Type =='youtube' ? "border-black border-2 m-2 rounded-lg bg-1 ": "border-black border-2 m-2 rounded-lg " }>youtube</span>
+    <span onClick = {twitter} className={Type =='twitter' ? "border-black border-2 m-2 rounded-lg bg-1":"border-black border-2 m-2 rounded-lg"}>twitter</span>
+    <button onClick = {AddContent} className="bg-gray-300 my-2 rounded-lg">add</button>
     </div>
+    </div>
+    </>
   );
 }
