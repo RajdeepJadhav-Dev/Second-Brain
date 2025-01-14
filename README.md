@@ -1,0 +1,1 @@
+ A personal web application to store and manage your favorite links from platforms like YouTube, Twitter, and others. The app allows users to add, categorize, and easily access various links they save for future reference or inspiration.
