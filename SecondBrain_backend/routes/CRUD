@@ -8,10 +8,11 @@ const random = require('../src/util');
 
 router.post('/add',UserMiddlewear ,async (req,res)=>{
 try{
-    const {title,link} = req.body;
+    const {title,link,type} = req.body;
      const response = await Content.create({
-        title,
         link,
+        type,
+        title,
         userId:req._id,
        
     })
@@ -30,12 +31,22 @@ catch(e){
 
 router.get('/read',UserMiddlewear,async (req,res)=>{
     const userId=req._id;
+    const user = await User.findById(userId);
     const content = await Content.find({
         userId:userId
     }).populate("userId","username")
+    if(user.firstVisit){
+        Content.create({
+            title:'example',
+            link:'https://www.youtube.com/watch?v=PZ7lDrwYdZc',
+            userId:req._id
+        })
+    }
     res.json({
         content
     })
+    user.firstVisit = false;
+    await user.save();
 })
 
 
@@ -96,7 +107,7 @@ router.get('/share/:hash',async(req,res)=>{
   const Userdoc = await User.findOne({
     _id:link.userId
   })
-   const content = await Content.findOne({
+   const content = await Content.find({
     userId:Userdoc._id
   })
   res.json({

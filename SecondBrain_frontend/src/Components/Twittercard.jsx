@@ -1,12 +1,12 @@
 import Share from '../icons/share'
 import Delete from '../icons/delete'
 import Video from '../icons/video';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import axios from 'axios';
 
 
 
-export default function Card(props){
+export default function Twittercard(props){
 const contentId = props.content_id
 const [openCard,setopenCard] = useState(true);
 async function CardPopup(){
@@ -19,7 +19,14 @@ async function CardPopup(){
     })
 
     }
-  
+
+    useEffect(() => {
+        // Trigger Twitter embed rendering after the component renders or updates
+        if (window.twttr && window.twttr.widgets) {
+          window.twttr.widgets.load();
+        }
+      }, [props.link]);
+
 
     return(
         <>
@@ -34,13 +41,10 @@ async function CardPopup(){
             </div>
         </ul>
         <div >
-            
-            {props.type=='youtube'? <iframe className='w-full p-2' src={props.link.replace("watch","embed").replace('?v=','/')} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-            :                <div className="transform scale-90 origin-top-left pt-3">
-
+                <div>
 <blockquote class="twitter-tweet"  data-media-max-width="560" data-lang="en" data-theme="light"><p lang="en" dir="ltr">It is a big day for Andhra Pradesh as we launch significant green energy initiatives and crucial infrastructure development projects. Watch live from Visakhapatnam. <a href="https://t.co/UyP1ILEs1W">https://t.co/UyP1ILEs1W</a></p>&mdash; Narendra Modi (@narendramodi) <a href={props.link.replace('x.com','twitter.com')}>January 8, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</div>
-            }
+</div>     
+   
             
         </div>
         </div>:null}

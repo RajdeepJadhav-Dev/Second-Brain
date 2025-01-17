@@ -3,9 +3,19 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import {Signup,Signin} from './auth.jsx'
-import {createBrowserRouter,RouterProvider} from 'react-router-dom';
+import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import { RecoilRoot } from 'recoil'
 
-const router = createBrowserRouter([{
+
+
+
+
+
+
+
+
+
+{/*const router = createBrowserRouter([{
   path:'/',
   element: <App/>
 },{
@@ -17,11 +27,18 @@ const router = createBrowserRouter([{
   element:<Signin/>
 }
 
-
-])
+])*/}
 
 createRoot(document.getElementById('root')).render(
+<RecoilRoot>
+  <BrowserRouter>
   <StrictMode>
-   <RouterProvider router = {router}/>
+        <Routes>
+          <Route path='/' element={<App/>}></Route>
+          <Route path='/signup' element={<Signup/>}></Route>
+          <Route path='/sigin' element={<Signin/>}></Route>
+        </Routes>
   </StrictMode>,
+  </BrowserRouter>
+  </RecoilRoot>
 )

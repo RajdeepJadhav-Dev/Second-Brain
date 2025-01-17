@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
     username : {type: String, required: true, unique: true},
-    password : {type: String,required: true}
+    password : {type: String,required: true},
+    firstVisit: { type: Boolean, default: true }
 })
 
 const contentTypes = ['image', 'video', 'article', 'audio','youtube','twitter']; // Extend as needed
@@ -15,7 +16,8 @@ const contentSchema = new Schema({
   type: { type: String, enum: contentTypes },
   title: { type: String, required: true },
   tags: [{ type: ObjectId, ref: 'Tag' }],
-  userId: { type:ObjectId, ref: 'Users', required: true },
+  userId: { type:ObjectId, ref: 'Users' },
+  
 });
 
 const TagSchema = new Schema({
@@ -31,6 +33,8 @@ const Tag = mongoose.model("Tag",TagSchema);
 const Content = mongoose.model("Content",contentSchema);
 const User = mongoose.model('Users',UserSchema);
 const Link = mongoose.model("Link",LinkSchema);
+
+
 
 module.exports = {
     User,

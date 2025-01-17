@@ -2,18 +2,10 @@ import { useState,useRef } from "react";
 import axios from 'axios';
 
 
-export default function AddPostModel({popup,fetchdata}){
+export default function AddPostModel({popup,fetchdata,youtube,twitter,Type}){
 
-const [Type,setType] = useState('youtube')
 
-  function youtube(){
-    setType('youtube')
-  }
-
-  function twitter(){
-    setType('twitter')
-  }
-
+const type = Type;
  const titleref = useRef();
 const linkref = useRef();
 
@@ -23,16 +15,20 @@ async function AddContent(){
   await axios.post('http://localhost:3000/add',{
       title:title,
       link:link,
+      type:type
 
   },{
    headers:{
     authorization:localStorage.getItem('token')
    }})
   alert("succefully posted");
-popup()
+popup();
 fetchdata();
 
 }
+
+
+
 
 
 
