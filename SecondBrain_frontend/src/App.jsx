@@ -51,7 +51,7 @@ function popup(){
 }
 
 async function fetchdata(){
-  const res =  await axios.get('http://localhost:3000/read',{
+  const res =  await axios.get('https://second-brain-backend-e7xp.onrender.com/read',{
     headers:{
      authorization:localStorage.getItem('token')
     }})
