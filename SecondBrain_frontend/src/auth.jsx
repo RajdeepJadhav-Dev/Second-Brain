@@ -83,7 +83,7 @@ export function Signin(){
             // Store the token in localStorage
             localStorage.setItem('token', jwt);
             // Navigate to the home page if the token is valid
-            navigate('/');
+            navigate('/dashboard');
           } else {
             // If no token is returned, display an error
             alert('Invalid credentials');
