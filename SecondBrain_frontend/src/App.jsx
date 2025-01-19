@@ -1,7 +1,4 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 import {Button1} from './Components/Buttons';
 import Youtubecard from './Components/Youtubecard';
 import AddPostModel from './Components/AddPostModel';
@@ -14,6 +11,26 @@ import Twittercard from './Components/Twittercard';
 
 function App() {
   
+
+
+  //chosen from the side bar elements
+
+  const [SideBarType,setSideBarType] = useState('all')
+
+  function SideBarAll(){
+    setSideBarType('all')
+  }
+  function SideBarTweet(){
+    setSideBarType('tweet')
+
+  }
+  function SideBarYoutube(){
+    setSideBarType('youtube')
+  }
+
+
+
+// type from databse
   const [Type,setType] = useState('youtube')
 
   function youtube(){
@@ -47,15 +64,16 @@ useEffect(()=>{fetchdata()},[]);
   return (
 
     <>
-    <div className='h-screen bg-gray-100'>
-    <Sidebar/>
+    <body className='h-screen bg-gray-100'>
+    <div>
+    <Sidebar SideBarAll={SideBarAll} SideBarTweet={SideBarTweet} SideBarYoutube={SideBarYoutube}/>
     {openAddPostModel?
     <AddPostModel popup={popup} fetchdata={fetchdata} twitter={twitter} youtube={youtube} Type={Type} />:null}
      <div className='flex justify-end gap-x-4 mr-6 relative bottom-4'>
     <Button1 popup={popup}></Button1>
     </div>
-    <div className="flex flex-wrap ml-72 relative bottom-10">
-  {content.map((x) =>
+    <div className="flex flex-wrap ml-60 relative bottom-10">
+  {SideBarType=='all' ? content.map((x) =>
     x.type === 'youtube' ? (
       <Youtubecard
         key={x._id}
@@ -73,10 +91,24 @@ useEffect(()=>{fetchdata()},[]);
         fetchdata={fetchdata}
       />
     )
-  )}
+  ):SideBarType=='youtube'? content.map(x=>x.type==='youtube' ? (   <Youtubecard
+    key={x._id}
+    title={x.title}
+    link={x.link}
+    content_id={x._id}
+    fetchdata={fetchdata}
+  />):null): SideBarType == 'tweet' ? content.map(x=>x.type==='twitter' ? (
+    <Twittercard
+      key={x._id}
+      title={x.title}
+      link={x.link}
+      content_id={x._id}
+      fetchdata={fetchdata}
+    />
+  ):null): null}
 </div>
-
 </div>
+</body>
     </>
   )
 }

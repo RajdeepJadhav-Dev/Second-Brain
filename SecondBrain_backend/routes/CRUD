@@ -39,6 +39,7 @@ router.get('/read',UserMiddlewear,async (req,res)=>{
         Content.create({
             title:'example',
             link:'https://www.youtube.com/watch?v=PZ7lDrwYdZc',
+            type:'youtube',
             userId:req._id
         })
     }

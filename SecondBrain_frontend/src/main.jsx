@@ -8,27 +8,6 @@ import { RecoilRoot } from 'recoil'
 
 
 
-
-
-
-
-
-
-
-{/*const router = createBrowserRouter([{
-  path:'/',
-  element: <App/>
-},{
-  path:'/signup',
-  element:<Signup/>
-}
-,{
-  path:'/signin',
-  element:<Signin/>
-}
-
-])*/}
-
 createRoot(document.getElementById('root')).render(
 <RecoilRoot>
   <BrowserRouter>
@@ -36,7 +15,7 @@ createRoot(document.getElementById('root')).render(
         <Routes>
           <Route path='/' element={<App/>}></Route>
           <Route path='/signup' element={<Signup/>}></Route>
-          <Route path='/sigin' element={<Signin/>}></Route>
+          <Route path='/signin' element={<Signin/>}></Route>
         </Routes>
   </StrictMode>,
   </BrowserRouter>
