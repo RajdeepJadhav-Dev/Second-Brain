@@ -10,7 +10,7 @@ const authrouter = require('../routes/authorization');
 const crudRouter = require('../routes/CRUD');
 const { preprocess } = require('zod');
 app.use(cors({
-    origin: 'https://your-frontend.vercel.app', // Replace with your Vercel frontend URL
+    origin: 'https://second-brain-frontend-drab.vercel.app/', // Replace with your Vercel frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify HTTP methods allowed
     credentials: true, // Allow cookies if needed
   }));
