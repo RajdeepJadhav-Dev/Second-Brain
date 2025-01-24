@@ -9,12 +9,15 @@ mongoose.connect(MongoDB_URL).then(console.log("databse connected"));
 const authrouter = require('../routes/authorization');
 const crudRouter = require('../routes/CRUD');
 const { preprocess } = require('zod');
-const port = 3000;
-app.use(cors());
+app.use(cors({
+    origin: 'https://your-frontend.vercel.app', // Replace with your Vercel frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify HTTP methods allowed
+    credentials: true, // Allow cookies if needed
+  }));
 app.use('/',authrouter);
 app.use('/',crudRouter);
 
 
 
 
-app.listen(port,()=>console.log('port 3000 running....'));
+app.listen('https://second-brain-backend-eta.vercel.app/',()=>console.log('port 3000 running....'));
