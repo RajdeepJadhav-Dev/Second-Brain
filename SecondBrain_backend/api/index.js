@@ -10,6 +10,7 @@ const authrouter = require('./routes/authorization');
 const crudRouter = require('./routes/CRUD');
 const { preprocess } = require('zod');
 const PORT = process.env.PORT || 3000;
+
 app.use(cors({
     origin: 'https://second-brain-frontend-drab.vercel.app', // Replace with your Vercel frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify HTTP methods allowed
@@ -18,7 +19,8 @@ app.use(cors({
 app.use('/',authrouter);
 app.use('/',crudRouter);
 
-
+// Preflight request handler for CORS
+app.options('*', cors()); // Handle preflight requests
 
 
 app.listen(PORT,()=>console.log('port 3000 running....'));
