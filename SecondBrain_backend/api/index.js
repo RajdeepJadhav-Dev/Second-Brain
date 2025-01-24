@@ -22,3 +22,5 @@ app.use('/',crudRouter);
 
 
 app.listen(PORT,()=>console.log('port 3000 running....'));
+
+module.exports = app;  // Export the app for Vercel
