@@ -15,7 +15,7 @@ export function Signup() {
     const password = passwordref.current.value;
 
     try {
-      const res = await axios.post('http://localhost:3000/signup', {
+      const res = await axios.post('https://second-brain-backend-e7xp.onrender.com/signup', {
         username,
         password,
       });
@@ -74,7 +74,7 @@ export function Signin(){
     async function signin(){
         const username = usernameref.current.value;
         const password = passwordref.current.value;
-        const res = await axios.post('http://localhost:3000/signin',{
+        const res = await axios.post('https://second-brain-backend-e7xp.onrender.com/signin',{
             username:username,
             password:password
         })
