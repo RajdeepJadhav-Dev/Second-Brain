@@ -15,7 +15,7 @@ export function Signup() {
     const password = passwordref.current.value;
 
     try {
-      const res = await axios.post('https://second-brain-backend-e7xp.onrender.com/signup', {
+      const res = await axios.post('https://second-brain-backend-eta.vercel.app/signup', {
         username,
         password,
       });
@@ -74,7 +74,7 @@ export function Signin(){
     async function signin(){
         const username = usernameref.current.value;
         const password = passwordref.current.value;
-        const res = await axios.post('https://second-brain-backend-e7xp.onrender.com/signin',{
+        const res = await axios.post('https://second-brain-backend-eta.vercel.app/signin',{
             username:username,
             password:password
         })
