@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const jwt_key = require('../src/config');
 const {Content,Link, User} = require('../src/db');
 const UserMiddlewear = require('../middlewears/UsersMiddlewear');
 const mongoose = require("mongoose");

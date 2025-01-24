@@ -1,6 +1,7 @@
 
 const jwt = require('jsonwebtoken');
-const jwt_key = require('../src/config');
+require('dotenv').config();
+const jwt_key = process.env.jwt_key;
 
 function UserMiddlewear(req,res,next){
     const token = req.headers["authorization"];

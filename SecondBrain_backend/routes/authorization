@@ -4,7 +4,8 @@ const {z} = require('zod');
 const {User} = require('../src/db');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
-const jwt_key = require('../src/config');
+require('dotenv').config();
+const jwt_key = process.env.jwt_key;
 
 router.post('/signup',async (req,res)=>{
 
