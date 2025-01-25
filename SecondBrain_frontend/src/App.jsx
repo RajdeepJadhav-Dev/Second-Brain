@@ -51,7 +51,7 @@ function popup(){
 }
 
 async function fetchdata(){
-  const res =  await axios.get('https://second-brain-backend-eta.vercel.app/read',{
+  const res =  await axios.get('https://second-brain-backend-2-wwkv.onrender.com/read',{
     headers:{
      authorization:localStorage.getItem('token')
     }})

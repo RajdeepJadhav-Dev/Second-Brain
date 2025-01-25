@@ -12,7 +12,7 @@ const linkref = useRef();
 async function AddContent(){
  const title = titleref.current.value;
  const link = linkref.current.value;
-  await axios.post('https://second-brain-backend-eta.vercel.app/add',{
+  await axios.post('https://second-brain-backend-2-wwkv.onrender.com/add',{
       title:title,
       link:link,
       type:type

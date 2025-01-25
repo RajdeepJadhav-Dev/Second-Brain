@@ -11,7 +11,7 @@ const contentId = props.content_id
 const [openCard,setopenCard] = useState(true);
 async function CardPopup(){
    setopenCard(prev=>!prev)
-    await axios.delete('https://second-brain-backend-eta.vercel.app/delete', {
+    await axios.delete('https://second-brain-backend-2-wwkv.onrender.com/delete', {
         headers: {
             authorization: localStorage.getItem('token') // Send token in the headers
         },
