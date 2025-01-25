@@ -16,8 +16,8 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify HTTP methods allowed
     credentials: true, // Allow cookies if needed
   }));
-app.use('/',authrouter);
-app.use('/',crudRouter);
+app.use('/authorization',authrouter);
+app.use('/CRUD',crudRouter);
 
 module.exports = (req, res) => {
   app(req, res);
