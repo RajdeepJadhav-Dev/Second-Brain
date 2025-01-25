@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {Content,Link, User} = require('./db');
+const {Content,Link, User} = require('./db.js');
 const UserMiddlewear = require('./UsersMiddlewear.js');
 const mongoose = require("mongoose");
 const random = require('./util.js');

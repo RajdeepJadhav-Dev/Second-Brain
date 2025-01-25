@@ -1,34 +1,5 @@
 {
-    "version": 2,
-    "routes": [
-      {
-        "src": "/signup",
-        "dest": "/api/authorization.js"
-      },
-      {
-        "src": "/signin",
-        "dest": "/api/authorization.js"
-      },
-      {
-        "src": "/add",
-        "dest": "/api/CRUD.js"
-      },
-      {
-        "src": "/read",
-        "dest": "/api/CRUD.js"
-      },
-      {
-        "src": "/delete",
-        "dest": "/api/CRUD.js"
-      },
-      {
-        "src": "/share",
-        "dest": "/api/CRUD.js"
-      },
-      {
-        "src": "/share/:hash",
-        "dest": "/api/CRUD.js"
-      }
-    ]
-  }
-  
+  "version":2,
+  "builds": [{"src":"./api/index.js","use":"@vercel/node"}],
+  "routes": [{"src":"/(.*)","dest":"/"}]
+}
