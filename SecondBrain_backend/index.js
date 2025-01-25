@@ -19,7 +19,6 @@ app.use(cors({
 app.use('/',authrouter);
 app.use('/',crudRouter);
 
-
-app.listen(PORT,()=>console.log('port 3000 running....'));
-
-module.exports = app;  // Export the app for Vercel
+module.exports = (req, res) => {
+  app(req, res);
+};
