@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {Content,Link, User} = require('../db');
-const UserMiddlewear = require('./UsersMiddlewear');
+const UserMiddlewear = require('./UsersMiddlewear.js');
 const mongoose = require("mongoose");
 const random = require('./util');
 

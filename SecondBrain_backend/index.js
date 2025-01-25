@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 app.use(express.json());
 MongoDB_URL = process.env.MongoDB_URL
 mongoose.connect(MongoDB_URL).then(console.log("databse connected"));
-const authrouter = require('./authorization');
-const crudRouter = require('./CRUD');
+const authrouter = require('./authorization.js');
+const crudRouter = require('./CRUD.js/index.js');
 const { preprocess } = require('zod');
 const PORT = process.env.PORT || 3000;
 
