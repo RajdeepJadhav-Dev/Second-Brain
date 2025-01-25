@@ -7,7 +7,7 @@ app.use(express.json());
 MongoDB_URL = process.env.MongoDB_URL
 mongoose.connect(MongoDB_URL).then(console.log("databse connected"));
 const authrouter = require('./authorization.js');
-const crudRouter = require('./CRUD.js/index.js');
+const crudRouter = require('./CRUD.js');
 const { preprocess } = require('zod');
 const PORT = process.env.PORT || 3000;
 
@@ -16,8 +16,8 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify HTTP methods allowed
     credentials: true, // Allow cookies if needed
   }));
-app.use('/authorization',authrouter);
-app.use('/CRUD',crudRouter);
+app.use('/',authrouter);
+app.use('/',crudRouter);
 
 module.exports = (req, res) => {
   app(req, res);
