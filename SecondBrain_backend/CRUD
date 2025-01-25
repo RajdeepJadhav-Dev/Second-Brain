@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const {Content,Link, User} = require('../db');
-const UserMiddlewear = require('../middlewears/UsersMiddlewear');
+const UserMiddlewear = require('./UsersMiddlewear');
 const mongoose = require("mongoose");
-const random = require('../util');
+const random = require('./util');
 
 router.post('/add',UserMiddlewear ,async (req,res)=>{
 try{
