@@ -1,1 +1,8 @@
- A personal web application to store and manage your favorite links from platforms like YouTube, Twitter, and others. The app allows users to add, categorize, and easily access various links they save for future reference or inspiration.
+LIVE LINK:https://second-brain-frontend-fsn0.onrender.com/
+ 
+Built a personal knowledge management tool using MERN stack. 
+● Enables users to seamlessly save, organize, and visually embed resources like 
+YouTube videos and Twitter posts. 
+● Features: 
+● Visually appealing interface for easy management of learning resources. 
+● Interactive and user-friendly for content curation.
